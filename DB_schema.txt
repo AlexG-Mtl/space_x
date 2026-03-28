@@ -1,0 +1,39 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+
+Table dim_date {
+  date_key integer
+  full_date date
+  year_nbr bigint
+  month_nbr bigint
+  day_of_month bigint
+}
+Table dim_rocket {
+  rocket_id varchar
+  rocket_name varchar
+  rocket_type varchar
+}
+Table fct_launches {
+  launch_id varchar
+  flight_number bigint
+  mission_name varchar
+  date_key integer
+  rocket_id varchar
+  success_flag integer
+}
+Table stg_launches {
+  launch_id varchar
+  flight_number bigint
+  mission_name varchar
+  launch_ts timestamp
+  launch_date date
+  launch_success boolean
+  rocket_id varchar
+  rocket_name varchar
+  rocket_type varchar
+}
+
+
+Ref: fct_launches.date_key > dim_date.date_key
+Ref: dim_rocket.rocket_id < fct_launches.rocket_id
